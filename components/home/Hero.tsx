@@ -10,14 +10,6 @@ export default function Hero() {
       <div className="hero-glow absolute inset-0" aria-hidden />
       <div className="absolute inset-0 grid-bg opacity-50" aria-hidden />
 
-      {/* Brand mark watermark — subtle, decorative, never crops or boxes */}
-      <img
-        src="/omega-mark.svg"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-12 top-8 w-[140px] select-none text-omega-charcoal opacity-[0.04] sm:-right-10 sm:top-10 sm:w-[200px] sm:opacity-[0.06] lg:right-[-40px] lg:top-20 lg:w-[260px] lg:opacity-[0.07] xl:right-[-20px] xl:w-[320px]"
-      />
-
       <div className="container-edge relative z-[1] pt-12 pb-14 sm:pt-14 sm:pb-20 lg:pt-24 lg:pb-32">
         <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
