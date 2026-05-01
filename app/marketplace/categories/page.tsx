@@ -11,7 +11,8 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "Marketplace Categories — OMEGA",
-  description: "Browse OMEGA Marketplace by category — AC, plumbing, electrical, leaks, painting, renovation, handyman, AMC, inspection, fit-out.",
+  description:
+    "Browse OMEGA Marketplace by category — AC, plumbing, electrical, leaks, painting, renovation, handyman, AMC, inspection, fit-out across the UAE.",
   path: "/marketplace/categories"
 });
 
@@ -29,7 +30,7 @@ export default function CategoriesPage() {
         description="Each category covers a clear scope. Pick what fits — or open the service that best matches your issue."
       />
 
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge">
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {MARKETPLACE_CATEGORIES.map((c) => {

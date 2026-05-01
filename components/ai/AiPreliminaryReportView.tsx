@@ -28,6 +28,11 @@ export default function AiPreliminaryReportView({
 }) {
   const sev = SEVERITY_COLOR[report.severity];
 
+  const isHighRisk = report.severity === "high" || report.severity === "urgent";
+  const hasSafetyFlag = report.complianceFlags.some((f) =>
+    /safety/i.test(f)
+  );
+
   return (
     <div className="px-5 py-5">
       <div className="eyebrow mb-2">Preliminary Assessment</div>
@@ -39,6 +44,23 @@ export default function AiPreliminaryReportView({
           {sev.label}
         </span>
       </div>
+
+      {(isHighRisk || hasSafetyFlag) && (
+        <div
+          className={`mt-3 flex items-start gap-2 rounded-xl border p-3 text-[12.5px] leading-relaxed ${
+            hasSafetyFlag
+              ? "border-red-200 bg-red-50 text-red-700"
+              : "border-amber-200 bg-amber-50 text-amber-800"
+          }`}
+        >
+          <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>
+            {hasSafetyFlag
+              ? "Safety priority — do not bypass breakers, ignore burning smell, or run damaged equipment. Book inspection or call OMEGA directly."
+              : "This is a preliminary AI assessment. Book an inspection to confirm scope and cost before any irreversible work."}
+          </span>
+        </div>
+      )}
 
       <p className="mt-3 text-[14px] leading-relaxed text-omega-charcoal">
         {report.summary}

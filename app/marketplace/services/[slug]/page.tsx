@@ -14,6 +14,7 @@ import {
   MARKETPLACE_SERVICES,
   getMarketplaceServiceBySlug
 } from "@/data/marketplaceServices";
+import { inferAiPresetFromServiceSlug } from "@/data/aiMockData";
 import { COMPANY, PRICE_DISCLAIMER } from "@/lib/constants";
 import { buildWhatsAppLink } from "@/lib/utils";
 import { buildMetadata } from "@/lib/seo";
@@ -144,7 +145,9 @@ export default function MarketplaceServiceDetailPage({
                   <AskOmegaAiButton
                     variant="ghost"
                     className="btn-lg w-full"
-                    label="Ask OMEGA AI"
+                    label="Ask OMEGA AI about this"
+                    flow={inferAiPresetFromServiceSlug(s.slug)?.flow}
+                    topic={inferAiPresetFromServiceSlug(s.slug)?.topic}
                   />
                   <a
                     href={buildWhatsAppLink(`Hi OMEGA, I'd like to inquire about: ${s.title}`)}

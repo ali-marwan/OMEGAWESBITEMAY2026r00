@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Check, MapPin, Calendar, ShoppingBag } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
@@ -99,21 +100,29 @@ export default function PortfolioDetailPage({
         </div>
       </section>
 
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge">
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {project.gallery.map((src, i) => (
               <div
                 key={i}
-                className={`overflow-hidden rounded-2xl border border-omega-border bg-omega-offwhite ${
-                  i === 0 ? "md:col-span-2 md:row-span-2" : ""
+                className={`relative overflow-hidden rounded-2xl border border-omega-border bg-omega-offwhite ${
+                  i === 0
+                    ? "min-h-[420px] md:col-span-2 md:row-span-2"
+                    : "min-h-[260px]"
                 }`}
               >
-                <img
+                <Image
                   src={encodeURI(src)}
                   alt={`${project.title} — image ${i + 1}`}
-                  loading={i === 0 ? "eager" : "lazy"}
-                  className={`h-full w-full object-cover ${i === 0 ? "min-h-[420px]" : "min-h-[260px]"}`}
+                  fill
+                  sizes={
+                    i === 0
+                      ? "(min-width: 1024px) 66vw, (min-width: 768px) 100vw, 100vw"
+                      : "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  }
+                  priority={i === 0}
+                  className="object-cover"
                 />
               </div>
             ))}

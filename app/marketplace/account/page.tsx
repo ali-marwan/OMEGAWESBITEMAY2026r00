@@ -17,7 +17,7 @@ export default function AccountPage() {
         description="Log in to view your service requests, inspections, AI assessments, and saved properties."
         small
       />
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge">
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-5">

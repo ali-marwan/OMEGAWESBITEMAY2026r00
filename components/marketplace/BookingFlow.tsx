@@ -1,8 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Check, Camera, Video, Mic, ChevronRight, ChevronLeft } from "lucide-react";
+import {
+  Check,
+  Camera,
+  Video,
+  Mic,
+  ChevronRight,
+  ChevronLeft,
+  X
+} from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 import {
   MARKETPLACE_SERVICES,
@@ -10,6 +18,19 @@ import {
 } from "@/data/marketplaceServices";
 
 type Mode = "booking" | "inspection" | "quote";
+
+type SavedState = {
+  step: number;
+  serviceSlug: string;
+  propertyType: string;
+  community: string;
+  unit: string;
+  urgency: string;
+  scope: string;
+  name: string;
+  phone: string;
+  email: string;
+};
 
 const STEPS = [
   "Service",
@@ -37,10 +58,89 @@ export default function BookingFlow({
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  const storageKey = `omega:booking:${mode}:${preselectedService ?? "any"}`;
+
+  // Hydrate from sessionStorage once on mount
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(storageKey);
+      if (raw) {
+        const saved = JSON.parse(raw) as Partial<SavedState>;
+        if (saved.step !== undefined) setStep(saved.step);
+        if (saved.serviceSlug && !preselectedService) setServiceSlug(saved.serviceSlug);
+        if (saved.propertyType) setPropertyType(saved.propertyType);
+        if (saved.community) setCommunity(saved.community);
+        if (saved.unit) setUnit(saved.unit);
+        if (saved.urgency) setUrgency(saved.urgency);
+        if (saved.scope) setScope(saved.scope);
+        if (saved.name) setName(saved.name);
+        if (saved.phone) setPhone(saved.phone);
+        if (saved.email) setEmail(saved.email);
+      }
+    } catch {
+      // ignore parse errors
+    }
+    setHydrated(true);
+  }, [storageKey, preselectedService]);
+
+  // Persist on change (after hydration to avoid clobbering on mount)
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      const data: SavedState = {
+        step,
+        serviceSlug,
+        propertyType,
+        community,
+        unit,
+        urgency,
+        scope,
+        name,
+        phone,
+        email
+      };
+      sessionStorage.setItem(storageKey, JSON.stringify(data));
+    } catch {
+      // ignore quota errors
+    }
+  }, [
+    hydrated,
+    step,
+    serviceSlug,
+    propertyType,
+    community,
+    unit,
+    urgency,
+    scope,
+    name,
+    phone,
+    email,
+    storageKey
+  ]);
 
   const service: MarketplaceService | undefined = MARKETPLACE_SERVICES.find(
     (s) => s.slug === serviceSlug
   );
+
+  const openFilePicker = (accept: string) => {
+    if (!fileInputRef.current) return;
+    fileInputRef.current.accept = accept;
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const list = e.target.files ? Array.from(e.target.files) : [];
+    setFiles((prev) => [...prev, ...list]);
+    e.target.value = "";
+  };
+
+  const removeFile = (idx: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== idx));
+  };
 
   const titleMap: Record<Mode, string> = {
     booking: "Book a service",
@@ -58,6 +158,14 @@ export default function BookingFlow({
   const prev = () => setStep((s) => Math.max(s - 1, 0));
 
   if (confirmed) {
+    // Clear saved state once confirmed
+    if (typeof window !== "undefined") {
+      try {
+        sessionStorage.removeItem(storageKey);
+      } catch {
+        // ignore
+      }
+    }
     return (
       <div className="rounded-2xl border border-omega-orange/30 bg-omega-orange-soft/40 p-10 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-omega-orange text-white">
@@ -255,14 +363,60 @@ export default function BookingFlow({
             </div>
             <div>
               <label className="label-base">Add media (optional)</label>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                className="hidden"
+                onChange={handleFileChange}
+              />
               <div className="grid grid-cols-3 gap-2">
-                <UploadButton icon={<Camera className="h-4 w-4" />} label="Photo" />
-                <UploadButton icon={<Video className="h-4 w-4" />} label="Video" />
-                <UploadButton icon={<Mic className="h-4 w-4" />} label="Voice" />
+                <UploadButton
+                  icon={<Camera className="h-4 w-4" />}
+                  label="Photo"
+                  onClick={() => openFilePicker("image/*")}
+                />
+                <UploadButton
+                  icon={<Video className="h-4 w-4" />}
+                  label="Video"
+                  onClick={() => openFilePicker("video/*")}
+                />
+                <UploadButton
+                  icon={<Mic className="h-4 w-4" />}
+                  label="Voice"
+                  onClick={() => openFilePicker("audio/*")}
+                />
               </div>
-              <p className="mt-1.5 text-[10.5px] text-omega-grey">
-                Upload integration coming soon. For now, share media via WhatsApp after
-                submission.
+
+              {files.length > 0 && (
+                <ul className="mt-3 space-y-1.5">
+                  {files.map((f, i) => (
+                    <li
+                      key={`${f.name}-${i}`}
+                      className="flex items-center justify-between rounded-lg border border-omega-border bg-omega-cream px-3 py-1.5 text-[12px] text-omega-charcoal"
+                    >
+                      <span className="truncate" title={f.name}>
+                        {f.name}{" "}
+                        <span className="text-omega-grey">
+                          ({(f.size / 1024).toFixed(0)} KB)
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => removeFile(i)}
+                        aria-label={`Remove ${f.name}`}
+                        className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full text-omega-grey hover:bg-white"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <p className="mt-2 text-[10.5px] text-omega-grey">
+                Files are held locally for now — backend upload integration is being
+                prepared. OMEGA will request media via WhatsApp during scheduling.
               </p>
             </div>
           </div>
@@ -356,15 +510,18 @@ export default function BookingFlow({
 
 function UploadButton({
   icon,
-  label
+  label,
+  onClick
 }: {
   icon: React.ReactNode;
   label: string;
+  onClick?: () => void;
 }) {
   return (
     <button
       type="button"
-      className="flex flex-col items-center justify-center gap-1 rounded-xl border border-omega-border bg-omega-cream px-2 py-3 text-[11.5px] font-medium text-omega-charcoal hover:border-omega-charcoal/30"
+      onClick={onClick}
+      className="flex flex-col items-center justify-center gap-1 rounded-xl border border-omega-border bg-omega-cream px-2 py-3 text-[11.5px] font-medium text-omega-charcoal transition hover:border-omega-charcoal/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-omega-orange"
     >
       {icon}
       {label}

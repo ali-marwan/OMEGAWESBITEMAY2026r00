@@ -22,7 +22,7 @@ export default function QuoteRequestPage({
         description="Tell OMEGA the scope. Our team will respond with a written quotation, recommended approach, and timeline direction."
         small
       />
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge max-w-3xl">
           <BookingFlow mode="quote" preselectedService={searchParams.service} />
         </div>

@@ -97,16 +97,34 @@ npm run lint
 - **Instagram:** @omega_property_hub
 - **Maps:** https://maps.app.goo.gl/qxRk516yBA56MwSL6
 
+## What landed in the May refinement pass
+
+- Fixed `bare:0` typo across 16 pages → `<Section bare>` prop with JSDoc safeguard
+- Added `.prose-omega` article typography for blog detail
+- Hid the floating AI chip on `< sm` (sticky bar already exposes the same entry)
+- Bumped Header nav-collapse from `lg` → `xl` so Marketplace CTA isn't crowded on 1280–1366 laptops
+- Mounted the GLB 3D logo in Hero via `next/dynamic` (`ssr: false`), `IntersectionObserver`, with SVG fallback
+- Migrated portfolio/blog cover images from `<img>` → `next/image`
+- Added `app/sitemap.ts`, `app/robots.ts`, `app/opengraph-image.tsx` (build-time PNG via `next/og`)
+- Extended `buildMetadata()` with `ogImage` and `type` (article/website)
+- Added `Organization` + `LocalBusiness` JSON-LD on home, `Article` JSON-LD on blog detail
+- Marketplace, portfolio, and blog filters now URL-driven (`?cat=`, `?q=`) — back-button safe, shareable
+- Service detail "Ask OMEGA AI" now deep-links to the right flow + topic via marketplace-slug → AI-topic mapping
+- BookingFlow: real `<input type="file">` (Photo/Video/Voice), `sessionStorage` persistence keyed on mode + service
+- AI Assistant: real file input, `sessionStorage` persistence, severity-based banner inside the report, sheet height switched to `100dvh` for iOS keyboard handling, `omega:open-ai` event payload widened to `{ flow?, topic? }`
+- Checkout: context-aware total via `?type=` (inspection / service / quote / custom) — no more hardcoded AED 100 outside inspection
+- B2B page: `Platform Login` now routes to `/contact?team=enterprise&intent=login`
+- 404 page now lists popular routes
+
 ## TODO — backend integration milestones
 
 - [ ] Real AI API (Anthropic / OpenAI) wired to `AiAssessmentForm` and report generator
 - [ ] Supabase auth for `/marketplace/account` (replace placeholder login)
-- [ ] Supabase storage for AI media uploads (photo / video / voice)
+- [ ] Supabase storage for AI media uploads (photo / video / voice) — file selection UI is already wired
 - [ ] Stripe payments for `/marketplace/checkout` and inspection fee
 - [ ] Lead database / CRM for booking, inspection, quote forms
 - [ ] WhatsApp Cloud API + email notifications for new requests
 - [ ] OMEGA AI Property Intelligence Platform — dashboards, BOQ generator, approval workflow
-- [ ] Replace portfolio placeholder copy with real client-confirmed names where allowed
 - [ ] Arabic locale (`/ar`) once English content is finalized
 
 ---

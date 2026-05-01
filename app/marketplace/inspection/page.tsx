@@ -37,7 +37,7 @@ export default function InspectionPage({
         description="If you don't know the scope yet, an OMEGA inspection is the best first step. A technician attends, assesses the situation, and provides an indicative scope and price."
         small
       />
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge">
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-7">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { PORTFOLIO } from "@/data/portfolio";
@@ -32,12 +33,14 @@ export default function PortfolioPreview() {
               href={`/portfolio/${p.slug}`}
               className="group relative overflow-hidden rounded-2xl border border-omega-border bg-white"
             >
-              <div className="aspect-[4/3] overflow-hidden bg-omega-offwhite">
-                <img
+              <div className="relative aspect-[4/3] overflow-hidden bg-omega-offwhite">
+                <Image
                   src={encodeURI(p.cover)}
                   alt={p.title}
-                  loading={i < 2 ? "eager" : "lazy"}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  priority={i === 0}
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
               </div>
               <div className="flex items-start justify-between gap-4 p-5">

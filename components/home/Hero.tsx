@@ -1,16 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowRight, ShoppingBag, MessageCircle, Sparkles } from "lucide-react";
 import AskOmegaAiButton from "@/components/ui/AskOmegaAiButton";
+
+const OmegaLogo3D = dynamic(() => import("@/components/ui/OmegaLogo3D"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full items-center justify-center">
+      <img src="/omega-logo.svg" alt="" className="h-12 w-auto opacity-40" />
+    </div>
+  )
+});
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-omega-cream">
       <div className="hero-glow absolute inset-0" aria-hidden />
       <div className="absolute inset-0 grid-bg opacity-50" aria-hidden />
+      <div
+        className="pointer-events-none absolute right-4 top-24 hidden h-[200px] w-[200px] opacity-70 lg:block xl:right-12 xl:h-[260px] xl:w-[260px]"
+        aria-hidden
+      >
+        <OmegaLogo3D className="h-full w-full" />
+      </div>
 
-      <div className="container-edge relative pt-14 pb-20 lg:pt-24 lg:pb-32">
+      <div className="container-edge relative z-[1] pt-14 pb-20 lg:pt-24 lg:pb-32">
         <div className="grid items-center gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <div className="eyebrow-orange animate-fade-in-up">

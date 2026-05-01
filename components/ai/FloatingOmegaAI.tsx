@@ -3,12 +3,20 @@
 import { useEffect, useState } from "react";
 import { Sparkles, X } from "lucide-react";
 import AiPanel from "./AiPanel";
+import type { AiFlowType } from "@/data/aiMockData";
+
+type Preset = { flow?: AiFlowType; topic?: string };
 
 export default function FloatingOmegaAI() {
   const [open, setOpen] = useState(false);
+  const [preset, setPreset] = useState<Preset>({});
 
   useEffect(() => {
-    const handler = () => setOpen(true);
+    const handler = (e: Event) => {
+      const ce = e as CustomEvent<Preset>;
+      setPreset(ce.detail ?? {});
+      setOpen(true);
+    };
     const close = () => setOpen(false);
     window.addEventListener("omega:open-ai", handler);
     window.addEventListener("omega:close-ai", close);
@@ -32,7 +40,7 @@ export default function FloatingOmegaAI() {
         type="button"
         aria-label={open ? "Close OMEGA AI" : "Open OMEGA AI"}
         onClick={() => setOpen((v) => !v)}
-        className={`fixed bottom-[80px] right-4 z-[55] inline-flex items-center gap-2 rounded-full bg-omega-black px-4 py-3 text-white shadow-elevated transition-all hover:bg-omega-charcoal lg:bottom-6 lg:right-6 ${
+        className={`fixed bottom-6 right-6 z-[55] hidden items-center gap-2 rounded-full bg-omega-black px-4 py-3 text-white shadow-elevated transition-all hover:bg-omega-charcoal sm:inline-flex ${
           open ? "scale-95" : "scale-100"
         }`}
       >
@@ -49,7 +57,11 @@ export default function FloatingOmegaAI() {
         )}
       </button>
 
-      <AiPanel open={open} onClose={() => setOpen(false)} />
+      <AiPanel
+        open={open}
+        onClose={() => setOpen(false)}
+        preset={preset}
+      />
     </>
   );
 }

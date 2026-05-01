@@ -42,6 +42,37 @@ export const AI_RENOVATION_TOPICS = [
 export const AI_DEFAULT_DISCLAIMER =
   "This AI assessment is preliminary and based only on the information provided. Final diagnosis, cost, compliance requirement, timeline, and execution method must be confirmed by OMEGA after site inspection or engineer review.";
 
+/**
+ * Map a marketplace service slug to the most relevant AI flow + topic so a
+ * "Ask OMEGA AI" button on a service page can deep-link the user into the
+ * right starting point of the assistant.
+ */
+export function inferAiPresetFromServiceSlug(
+  slug: string
+): { flow: AiFlowType; topic: string } | undefined {
+  // Renovation matches first (longer specific slugs)
+  if (slug === "bathroom-renovation") return { flow: "renovation", topic: "bathroom-renovation" };
+  if (slug === "kitchen-renovation") return { flow: "renovation", topic: "kitchen-renovation" };
+  if (slug === "apartment-renovation") return { flow: "renovation", topic: "apartment-renovation" };
+  if (slug === "villa-renovation") return { flow: "renovation", topic: "villa-renovation" };
+  if (slug === "office-fitout") return { flow: "renovation", topic: "office-fitout" };
+
+  // Repair flow inferences
+  if (slug.startsWith("ac-")) return { flow: "repair", topic: "ac-not-cooling" };
+  if (slug === "duct-cleaning") return { flow: "repair", topic: "ac-not-cooling" };
+  if (slug.includes("leak-detection")) return { flow: "repair", topic: "ceiling-leak" };
+  if (slug.includes("waterproofing")) return { flow: "repair", topic: "ceiling-leak" };
+  if (slug.startsWith("plumbing")) return { flow: "repair", topic: "plumbing-leak" };
+  if (slug === "drain-cleaning") return { flow: "repair", topic: "plumbing-leak" };
+  if (slug === "water-heater-service") return { flow: "repair", topic: "plumbing-leak" };
+  if (slug.startsWith("electrical-")) return { flow: "repair", topic: "electrical-tripping" };
+  if (slug.startsWith("painting-")) return { flow: "repair", topic: "paint-damage" };
+  if (slug.startsWith("gypsum-")) return { flow: "repair", topic: "gypsum-damage" };
+  if (slug.startsWith("handyman-")) return { flow: "repair", topic: "door-window" };
+
+  return undefined;
+}
+
 export function generateMockRepairReport(topicId: string): AiPreliminaryReport {
   const topic = AI_REPAIR_TOPICS.find((t) => t.id === topicId);
   if (!topic) return generateUnknownReport();

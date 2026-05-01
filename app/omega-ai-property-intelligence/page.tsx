@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import PageHero from "@/components/ui/PageHero";
 import { Section, SectionHeader } from "@/components/ui/Section";
+import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -110,6 +111,7 @@ const FOR_WHO = [
 export default function AiPlatformPage() {
   return (
     <>
+      <OrganizationJsonLd />
       <PageHero
         eyebrow="OMEGA AI · PROPERTY INTELLIGENCE PLATFORM"
         title={
@@ -297,13 +299,12 @@ export default function AiPlatformPage() {
                 >
                   Request Corporate Demo
                 </Link>
-                <button
-                  type="button"
+                <Link
+                  href="/contact?team=enterprise&intent=login"
                   className="btn btn-lg border border-white/15 text-white hover:bg-white/10"
-                  aria-label="Platform login (coming soon)"
                 >
                   Platform Login
-                </button>
+                </Link>
                 <Link
                   href="/contact"
                   className="btn btn-lg text-white hover:underline"

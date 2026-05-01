@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   X,
   Sparkles,
@@ -28,17 +28,57 @@ type Step =
   | "form"
   | "report";
 
+type Preset = { flow?: AiFlowType; topic?: string };
+
 export default function AiPanel({
   open,
-  onClose
+  onClose,
+  preset
 }: {
   open: boolean;
   onClose: () => void;
+  preset?: Preset;
 }) {
   const [step, setStep] = useState<Step>("flows");
   const [flow, setFlow] = useState<AiFlowType>("repair");
   const [topicId, setTopicId] = useState<string | null>(null);
   const [report, setReport] = useState<AiPreliminaryReport | null>(null);
+
+  // Apply preset whenever the panel opens with one
+  useEffect(() => {
+    if (!open || !preset) return;
+    const { flow: pf, topic: pt } = preset;
+    if (!pf && !pt) return;
+
+    if (pf === "unknown") {
+      setReport(generateUnknownReport());
+      setStep("report");
+      return;
+    }
+
+    if (pf) {
+      setFlow(pf);
+      if (pt) {
+        setTopicId(pt);
+        setStep("form");
+      } else {
+        setStep("topic");
+      }
+    } else if (pt) {
+      // Topic without flow — try to infer
+      const isRepair = AI_REPAIR_TOPICS.some((t) => t.id === pt);
+      const isRenovation = AI_RENOVATION_TOPICS.some((t) => t.id === pt);
+      if (isRepair) {
+        setFlow("repair");
+        setTopicId(pt);
+        setStep("form");
+      } else if (isRenovation) {
+        setFlow("renovation");
+        setTopicId(pt);
+        setStep("form");
+      }
+    }
+  }, [open, preset]);
 
   const reset = () => {
     setStep("flows");
@@ -89,7 +129,7 @@ export default function AiPanel({
         onClick={handleClose}
       />
       <div
-        className={`absolute bottom-0 right-0 flex h-[calc(100vh-16px)] w-full transform flex-col bg-omega-cream shadow-elevated transition-transform duration-300 sm:right-4 sm:bottom-4 sm:h-[640px] sm:max-h-[calc(100vh-32px)] sm:w-[440px] sm:rounded-2xl sm:border sm:border-omega-border ${
+        className={`absolute bottom-0 right-0 flex h-[100dvh] w-full transform flex-col bg-omega-cream shadow-elevated transition-transform duration-300 sm:right-4 sm:bottom-4 sm:h-[640px] sm:max-h-[calc(100dvh-32px)] sm:w-[440px] sm:rounded-2xl sm:border sm:border-omega-border ${
           open ? "translate-y-0" : "translate-y-full sm:translate-y-4 sm:opacity-0"
         }`}
       >

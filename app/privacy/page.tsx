@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <>
       <PageHero eyebrow="LEGAL" title="Privacy Policy" small />
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge max-w-3xl text-[15px] leading-relaxed text-omega-grey">
           <p>
             This Privacy Policy describes how {COMPANY.legalName} ("OMEGA", "we", "us")

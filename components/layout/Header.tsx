@@ -36,7 +36,7 @@ export default function Header() {
         <div className="container-edge flex h-[72px] items-center justify-between">
           <Logo />
 
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden xl:flex items-center gap-7">
             {NAV_MAIN.map((item) => {
               const active =
                 item.href === "/"
@@ -79,7 +79,7 @@ export default function Header() {
               type="button"
               aria-label="Open menu"
               onClick={() => setOpen(true)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-omega-border bg-white text-omega-charcoal lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-omega-border bg-white text-omega-charcoal xl:hidden"
             >
               <Menu className="h-4 w-4" />
             </button>

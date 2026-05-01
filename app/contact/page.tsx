@@ -82,7 +82,7 @@ export default function ContactPage() {
         description="Marketplace for direct booking. AI for instant guidance. Inspection for clarity. Engineering team for serious scopes."
       />
 
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge">
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {CONTACT_CARDS.map((c) => (

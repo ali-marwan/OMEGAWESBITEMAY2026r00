@@ -25,7 +25,7 @@ export default function ServicesPage() {
         description="From day-to-day repair to engineering-led renovation, OMEGA covers what UAE property work actually demands — supervised, reported, and execution-ready."
       />
 
-      <Section className="bare:0 py-20 lg:py-24">
+      <Section bare className="py-20 lg:py-24">
         <div className="container-edge">
           <div className="grid gap-3 lg:grid-cols-2">
             {SERVICES.map((s, idx) => (

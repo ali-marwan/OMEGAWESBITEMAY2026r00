@@ -175,3 +175,58 @@ body {
     radial-gradient(60% 50% at 70% 30%, rgba(243,107,33,0.10), transparent 70%),
     radial-gradient(40% 35% at 20% 80%, rgba(243,107,33,0.06), transparent 70%);
 }
+
+/* Article typography for blog detail */
+.prose-omega {
+  color: var(--omega-charcoal);
+}
+.prose-omega h2 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+  margin-top: 2.5rem;
+  color: var(--omega-charcoal);
+}
+.prose-omega h2:first-child {
+  margin-top: 0;
+}
+.prose-omega h3 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  color: var(--omega-charcoal);
+}
+.prose-omega p {
+  margin-top: 1rem;
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--omega-grey);
+}
+.prose-omega ul, .prose-omega ol {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+  color: var(--omega-grey);
+}
+.prose-omega li {
+  margin-top: 0.4rem;
+  line-height: 1.7;
+}
+.prose-omega a {
+  color: var(--omega-orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-omega strong {
+  color: var(--omega-charcoal);
+  font-weight: 600;
+}
+.prose-omega blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--omega-orange);
+  color: var(--omega-charcoal);
+  font-style: italic;
+}

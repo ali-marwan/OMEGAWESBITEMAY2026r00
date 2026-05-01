@@ -1,5 +1,15 @@
 import { cn } from "@/lib/utils";
 
+/**
+ * Section wrapper.
+ *
+ * @param bare  Boolean PROP (not a Tailwind variant). When true, the default
+ *              `py-20 lg:py-28` is dropped so the page can supply its own
+ *              vertical rhythm via `className`. Pass it as `<Section bare>` —
+ *              do NOT use `className="bare:0 ..."` (Tailwind has no `bare:`
+ *              variant and the class is silently dropped, leaving both
+ *              paddings applied).
+ */
 export function Section({
   children,
   className,

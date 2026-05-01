@@ -22,7 +22,7 @@ export default function BookingPage({
         description="Tell OMEGA what you need. We'll confirm the visit and indicative price before scheduling."
         small
       />
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge max-w-3xl">
           <BookingFlow mode="booking" preselectedService={searchParams.service} />
         </div>

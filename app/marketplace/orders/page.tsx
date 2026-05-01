@@ -46,7 +46,7 @@ export default function OrdersPage() {
         description="Track service bookings, inspections, and quotations. Sample data shown — your real requests will appear here once you sign in."
         small
       />
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge">
           <div className="rounded-2xl border border-omega-orange/30 bg-omega-orange-soft/40 p-5 text-[13.5px] text-omega-charcoal">
             <span className="font-medium">Preview mode.</span>{" "}

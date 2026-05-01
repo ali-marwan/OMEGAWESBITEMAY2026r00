@@ -8,10 +8,16 @@ import PortfolioPreview from "@/components/home/PortfolioPreview";
 import B2BMention from "@/components/home/B2BMention";
 import BlogPreview from "@/components/home/BlogPreview";
 import ContactCta from "@/components/home/ContactCta";
+import {
+  OrganizationJsonLd,
+  LocalBusinessJsonLd
+} from "@/components/seo/JsonLd";
 
 export default function HomePage() {
   return (
     <>
+      <OrganizationJsonLd />
+      <LocalBusinessJsonLd />
       <Hero />
       <Marquee
         items={[

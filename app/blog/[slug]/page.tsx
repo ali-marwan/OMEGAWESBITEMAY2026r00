@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, ShoppingBag } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import AskOmegaAiButton from "@/components/ui/AskOmegaAiButton";
+import { ArticleJsonLd } from "@/components/seo/JsonLd";
 import { BLOG_POSTS, getBlogPostBySlug } from "@/data/blogPosts";
 import { AI_DISCLAIMER } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
@@ -17,7 +18,8 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   return buildMetadata({
     title: p.metaTitle,
     description: p.metaDescription,
-    path: `/blog/${p.slug}`
+    path: `/blog/${p.slug}`,
+    type: "article"
   });
 }
 
@@ -35,6 +37,13 @@ export default function BlogDetailPage({
 
   return (
     <>
+      <ArticleJsonLd
+        title={post.title}
+        description={post.metaDescription}
+        slug={post.slug}
+        publishedAt={post.publishedAt}
+        category={post.category}
+      />
       <section className="border-b border-omega-border bg-omega-cream">
         <div className="container-edge pt-10">
           <Link
@@ -58,7 +67,7 @@ export default function BlogDetailPage({
         </div>
       </section>
 
-      <Section className="bare:0 py-14 lg:py-20">
+      <Section bare className="py-14 lg:py-20">
         <div className="container-edge">
           <div className="grid gap-12 lg:grid-cols-12">
             <article className="prose-omega lg:col-span-8">
