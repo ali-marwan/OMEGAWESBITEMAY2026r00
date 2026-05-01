@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   X,
   Sparkles,
@@ -43,6 +43,26 @@ export default function AiPanel({
   const [flow, setFlow] = useState<AiFlowType>("repair");
   const [topicId, setTopicId] = useState<string | null>(null);
   const [report, setReport] = useState<AiPreliminaryReport | null>(null);
+  const sheetRef = useRef<HTMLDivElement | null>(null);
+  const mountedRef = useRef(false);
+
+  // Imperatively set the transform so the browser doesn't get confused
+  // by simultaneous parent-state changes (opacity / pointer-events) and
+  // leave the sheet stuck at its previous matrix value.
+  useLayoutEffect(() => {
+    const el = sheetRef.current;
+    if (!el) return;
+    const target = open ? "translate3d(0, 0, 0)" : "translate3d(0, 100%, 0)";
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      el.style.transition = "none";
+      el.style.transform = target;
+      void el.offsetHeight;
+      el.style.transition = "transform 280ms cubic-bezier(0.32, 0.72, 0, 1)";
+      return;
+    }
+    el.style.transform = target;
+  }, [open]);
 
   // Apply preset whenever the panel opens with one
   useEffect(() => {
@@ -129,9 +149,9 @@ export default function AiPanel({
         onClick={handleClose}
       />
       <div
-        className={`absolute bottom-0 right-0 flex h-[100dvh] w-full transform flex-col bg-omega-cream shadow-elevated transition-transform duration-300 sm:right-4 sm:bottom-4 sm:h-[640px] sm:max-h-[calc(100dvh-32px)] sm:w-[440px] sm:rounded-2xl sm:border sm:border-omega-border ${
-          open ? "translate-y-0" : "translate-y-full sm:translate-y-4 sm:opacity-0"
-        }`}
+        ref={sheetRef}
+        style={{ willChange: "transform", transform: "translate3d(0, 100%, 0)" }}
+        className="absolute bottom-0 right-0 flex h-[100dvh] w-full flex-col bg-omega-cream shadow-elevated sm:right-4 sm:bottom-4 sm:h-[640px] sm:max-h-[calc(100dvh-32px)] sm:w-[440px] sm:rounded-2xl sm:border sm:border-omega-border"
       >
         <div className="flex items-center justify-between border-b border-omega-border px-5 py-4">
           <div className="flex items-center gap-2.5">

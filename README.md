@@ -103,7 +103,7 @@ npm run lint
 - Added `.prose-omega` article typography for blog detail
 - Hid the floating AI chip on `< sm` (sticky bar already exposes the same entry)
 - Bumped Header nav-collapse from `lg` → `xl` so Marketplace CTA isn't crowded on 1280–1366 laptops
-- Mounted the GLB 3D logo in Hero via `next/dynamic` (`ssr: false`), `IntersectionObserver`, with SVG fallback
+- Hero brand mark: subtle SVG watermark (`/public/omega-mark.svg`) — replaced the GLB experiment for visual cleanliness and bundle size
 - Migrated portfolio/blog cover images from `<img>` → `next/image`
 - Added `app/sitemap.ts`, `app/robots.ts`, `app/opengraph-image.tsx` (build-time PNG via `next/og`)
 - Extended `buildMetadata()` with `ogImage` and `type` (article/website)
