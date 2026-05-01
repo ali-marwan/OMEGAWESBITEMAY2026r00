@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --omega-orange: #F36B21;
+  --omega-orange-soft: #FCE4D4;
+  --omega-black: #161616;
+  --omega-charcoal: #222222;
+  --omega-grey: #5F5A55;
+  --omega-warm-grey: #8A8178;
+  --omega-offwhite: #F7F4EF;
+  --omega-cream: #FBFAF7;
+  --omega-sand: #DED5C8;
+  --omega-border: #E9E1D7;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--omega-cream);
+  color: var(--omega-charcoal);
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--omega-orange);
+  color: white;
+}
+
+@layer components {
+  .container-edge {
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-6 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-eyebrow text-omega-grey;
+  }
+
+  .eyebrow-orange {
+    @apply inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-eyebrow text-omega-orange;
+  }
+
+  .display-xl {
+    @apply font-display font-light leading-[0.95] tracking-[-0.02em];
+    font-size: clamp(2.5rem, 6.4vw, 5.75rem);
+  }
+
+  .display-lg {
+    @apply font-display font-light leading-[0.98] tracking-[-0.02em];
+    font-size: clamp(2.25rem, 5vw, 4.25rem);
+  }
+
+  .display-md {
+    @apply font-display font-light leading-[1.02] tracking-[-0.015em];
+    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  }
+
+  .display-sm {
+    @apply font-display font-light leading-[1.1] tracking-[-0.01em];
+    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+  }
+
+  .body-lg {
+    @apply text-[1.0625rem] leading-relaxed text-omega-grey;
+  }
+
+  .body-md {
+    @apply text-[0.9375rem] leading-relaxed text-omega-grey;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-omega-orange focus-visible:ring-offset-2 focus-visible:ring-offset-omega-cream disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-omega-orange px-6 py-3 text-white hover:brightness-110 active:scale-[0.99];
+  }
+
+  .btn-secondary {
+    @apply btn border border-omega-charcoal/15 bg-white px-6 py-3 text-omega-charcoal hover:border-omega-charcoal/30 hover:bg-white;
+  }
+
+  .btn-ghost {
+    @apply btn px-6 py-3 text-omega-charcoal hover:bg-omega-offwhite;
+  }
+
+  .btn-dark {
+    @apply btn bg-omega-black px-6 py-3 text-white hover:bg-omega-charcoal;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-[13px];
+  }
+
+  .btn-lg {
+    @apply px-7 py-3.5 text-[15px];
+  }
+
+  .panel {
+    @apply rounded-2xl border border-omega-border bg-white shadow-soft;
+  }
+
+  .panel-cream {
+    @apply rounded-2xl border border-omega-border bg-omega-cream;
+  }
+
+  .divider {
+    @apply h-px w-full bg-omega-border;
+  }
+
+  .link-underline {
+    @apply underline-offset-4 hover:underline;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-omega-border bg-white px-3 py-1 text-[12px] font-medium text-omega-charcoal;
+  }
+
+  .pill-orange {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-omega-orange-soft px-3 py-1 text-[12px] font-medium text-omega-orange;
+  }
+
+  .pill-dark {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-omega-black px-3 py-1 text-[12px] font-medium text-white;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(94,90,85,0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(94,90,85,0.07) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .input-base {
+    @apply w-full rounded-xl border border-omega-border bg-white px-4 py-3 text-sm text-omega-charcoal placeholder:text-omega-warm-grey focus:border-omega-charcoal focus:outline-none focus:ring-0;
+  }
+
+  .label-base {
+    @apply mb-1.5 block text-[12px] font-medium uppercase tracking-eyebrow text-omega-grey;
+  }
+}
+
+@layer utilities {
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(to right, black 70%, transparent);
+    mask-image: linear-gradient(to right, black 70%, transparent);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Subtle technical contour pattern */
+.contour-pattern {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(243,107,33,0.05) 0, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(22,22,22,0.04) 0, transparent 35%),
+    linear-gradient(to right, rgba(94,90,85,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(94,90,85,0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+}
+
+/* Orange glow accent for hero */
+.hero-glow {
+  background:
+    radial-gradient(60% 50% at 70% 30%, rgba(243,107,33,0.10), transparent 70%),
+    radial-gradient(40% 35% at 20% 80%, rgba(243,107,33,0.06), transparent 70%);
+}
