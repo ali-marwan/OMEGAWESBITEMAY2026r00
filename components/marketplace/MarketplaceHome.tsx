@@ -20,8 +20,6 @@ import CategoryIcon from "@/components/marketplace/CategoryIcon";
 import { COMPANY, PRICE_DISCLAIMER } from "@/lib/constants";
 import AskOmegaAiButton from "@/components/ui/AskOmegaAiButton";
 
-const VALID_CATS = MARKETPLACE_CATEGORIES.map((c) => c.name) as MarketplaceCategory[];
-
 export default function MarketplaceHome({
   initialCat,
   initialQuery
@@ -228,14 +226,6 @@ export default function MarketplaceHome({
       </Section>
     </>
   );
-}
-
-export function parseInitialCategory(value?: string): MarketplaceCategory | null {
-  if (!value) return null;
-  const decoded = decodeURIComponent(value);
-  return (VALID_CATS.includes(decoded as MarketplaceCategory)
-    ? (decoded as MarketplaceCategory)
-    : null);
 }
 
 function HowCard({ step, title, body }: { step: string; title: string; body: string }) {

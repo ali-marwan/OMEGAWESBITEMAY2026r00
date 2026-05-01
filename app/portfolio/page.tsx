@@ -1,8 +1,7 @@
 import PageHero from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
-import PortfolioGrid, {
-  parseInitialPortfolioCat
-} from "@/components/portfolio/PortfolioGrid";
+import PortfolioGrid from "@/components/portfolio/PortfolioGrid";
+import { PORTFOLIO_CATEGORIES } from "@/data/portfolio";
 import { buildMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -13,6 +12,16 @@ export const metadata = buildMetadata({
     "Selected OMEGA projects across hospitality, retail, residential, and engineering coordination — executed under OMEGA supervision in the UAE.",
   path: "/portfolio"
 });
+
+type Cat = (typeof PORTFOLIO_CATEGORIES)[number];
+
+function parseCat(value?: string): Cat {
+  if (!value) return "All";
+  const decoded = decodeURIComponent(value);
+  return (PORTFOLIO_CATEGORIES as readonly string[]).includes(decoded)
+    ? (decoded as Cat)
+    : "All";
+}
 
 export default function PortfolioPage({
   searchParams
@@ -33,7 +42,7 @@ export default function PortfolioPage({
       />
 
       <Section bare className="py-14 lg:py-20">
-        <PortfolioGrid initialCat={parseInitialPortfolioCat(searchParams.cat)} />
+        <PortfolioGrid initialCat={parseCat(searchParams.cat)} />
       </Section>
     </>
   );

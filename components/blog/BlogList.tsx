@@ -67,10 +67,3 @@ export default function BlogList({ initialCat }: { initialCat: Cat }) {
   );
 }
 
-export function parseInitialBlogCat(value?: string): Cat {
-  if (!value) return "All";
-  const decoded = decodeURIComponent(value);
-  return (BLOG_CATEGORIES as readonly string[]).includes(decoded)
-    ? (decoded as Cat)
-    : "All";
-}

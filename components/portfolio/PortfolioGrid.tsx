@@ -79,10 +79,3 @@ export default function PortfolioGrid({ initialCat }: { initialCat: Cat }) {
   );
 }
 
-export function parseInitialPortfolioCat(value?: string): Cat {
-  if (!value) return "All";
-  const decoded = decodeURIComponent(value);
-  return (PORTFOLIO_CATEGORIES as readonly string[]).includes(decoded)
-    ? (decoded as Cat)
-    : "All";
-}
