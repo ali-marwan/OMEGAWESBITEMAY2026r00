@@ -82,7 +82,32 @@ export default function BlogDetailPage({
                 </section>
               ))}
 
-              <div className="mt-10 rounded-2xl border border-omega-border bg-omega-cream p-5 text-[12.5px] leading-relaxed text-omega-grey">
+              <div className="mt-10 rounded-2xl border border-omega-border bg-white p-6">
+                <div className="eyebrow-orange">NEXT STEP</div>
+                <h3 className="mt-2 font-display text-2xl text-omega-charcoal">
+                  Want OMEGA to handle this?
+                </h3>
+                <p className="mt-2 text-[14px] text-omega-grey">
+                  Open the Marketplace, ask OMEGA AI, book an inspection, or talk to our team.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Link href="/marketplace" className="btn-primary btn-sm">
+                    <ShoppingBag className="h-4 w-4" /> Explore Marketplace
+                  </Link>
+                  <AskOmegaAiButton variant="secondary" className="btn-sm" />
+                  <Link
+                    href="/marketplace/inspection"
+                    className="btn-secondary btn-sm"
+                  >
+                    Book Inspection — AED 100
+                  </Link>
+                  <Link href="/contact" className="btn-ghost btn-sm">
+                    Contact OMEGA
+                  </Link>
+                </div>
+              </div>
+
+              <div className="mt-6 rounded-2xl border border-omega-border bg-omega-cream p-5 text-[12.5px] leading-relaxed text-omega-grey">
                 <span className="eyebrow-orange mr-2">Disclaimer</span>
                 {AI_DISCLAIMER}
               </div>
@@ -108,6 +133,9 @@ export default function BlogDetailPage({
                       className="btn-ghost btn-sm"
                     >
                       Book Inspection — AED 100
+                    </Link>
+                    <Link href="/contact" className="btn-ghost btn-sm">
+                      Contact OMEGA
                     </Link>
                   </div>
                 </div>

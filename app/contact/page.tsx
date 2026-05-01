@@ -190,11 +190,12 @@ export default function ContactPage() {
               </div>
               <div className="aspect-[4/3] overflow-hidden rounded-xl border border-omega-border bg-omega-offwhite">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.2!2d55.2!3d25.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sJVC%2C%20Dubai!5e0!3m2!1sen!2sae!4v1700000000"
+                  src="https://www.google.com/maps?q=Alpha%20Green%20Tower%20JVC%20Dubai&output=embed"
                   loading="lazy"
                   className="h-full w-full"
-                  title="OMEGA Office Location"
+                  title="OMEGA Office — Alpha Green Tower, JVC, Dubai"
                   referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
                 />
               </div>
             </div>

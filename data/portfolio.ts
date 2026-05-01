@@ -157,12 +157,12 @@ export const PORTFOLIO: PortfolioProject[] = [
     ]
   },
   {
-    slug: "sheikha-residence",
-    title: "Sheikha Residence — Premium Interior",
+    slug: "premium-residential-interior",
+    title: "Premium Residential Interior",
     category: "Residential Renovation",
-    summary: "High-end residential interior works.",
+    summary: "High-end residential interior works under engineering-led execution.",
     description:
-      "Premium residential interior with attention to finish quality and material standards. Executed with documented scope and supervised trades.",
+      "A premium residential interior project with attention to finish quality and material standards. Executed with documented scope and supervised trades.",
     scope: ["Premium finishing", "Materials coordination", "Snagging and handover"],
     services: ["Renovation", "Engineering Solutions"],
     location: "Dubai",
